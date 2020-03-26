@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 443:443
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+    volumes:
+      - ./mnt:/var/lib/registry
+      - ./certs:/certs
+      - ./auth:/auth
+    networks:
+      - internal
+    tty: true
+
+networks:
+  internal:
+    name: internal
+    driver: bridge
