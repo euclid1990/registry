@@ -14,15 +14,22 @@
   ```bash
   $ ./start.sh
   ```
+
 ## Test
 
 - Login, Tag, Push image
   ```bash
-  $ docker login localhost
-  $ docker tag memcached:1.5.16 localhost/memcached
-  $ docker push memcached:1.5.16 localhost/memcached
+  $ docker login localhost:5000    # username: testuser | password: testpassword
+  $ docker pull hello-world
+  $ docker tag hello-world:latest localhost:5000/hello-world:1.0
+  $ docker push localhost:5000/hello-world:1.0
   ```
+- Registry API
   ```
   https://localhost/v2/_catalog
   https://localhost/v2/memcached/tags/list
+  ```
+- Registry Frontend
+  ```bash
+  http://localhost:8443    # username: testuser | password: testpassword
   ```
