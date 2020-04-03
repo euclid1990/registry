@@ -7,18 +7,15 @@ services:
     links:
       - registry:registry
     ports:
-      - 5001:443
-    volumes:
-      - ./certs/domain.crt:/etc/apache2/server.crt
-      - ./certs/domain.key:/etc/apache2/server.key
+      - 5001:80
     environment:
       # Docker registry connection
       ENV_DOCKER_REGISTRY_HOST: registry
       ENV_DOCKER_REGISTRY_PORT: 5000
-      # The front-end is SSL protected
-      ENV_USE_SSL: 1
-      # The registry is SSL protected as well
-      ENV_DOCKER_REGISTRY_USE_SSL: 1
+      # The front-end is no SSL protected
+      ENV_USE_SSL:
+      # The registry is no SSL protected as well
+      ENV_DOCKER_REGISTRY_USE_SSL: 
     networks:
       - internal
 
@@ -32,13 +29,10 @@ services:
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
-      # Register TLS certificate
+      # Specified http address
       REGISTRY_HTTP_ADDR: 0.0.0.0:5000
-      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
-      REGISTRY_HTTP_TLS_KEY: /certs/domain.key
     volumes:
       - ./mnt:/var/lib/registry
-      - ./certs:/certs
       - ./auth:/auth
     networks:
       - internal

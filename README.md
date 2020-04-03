@@ -2,9 +2,13 @@
 
 ## Setup
 
+- Grant execute permission
+  ```bash
+  $ sudo chmod a+x ./*.sh
+  ```
 - Native basic auth
   ```bash
-  $ ./auth.sh
+  $ ./auth.sh testuser testpassword
   ```
 - Get a certificate
   ```bash
@@ -13,6 +17,14 @@
 - Start the registry
   ```bash
   $ ./start.sh
+  ```
+  Or
+  ```bash
+  $ docker-compose up
+  ```
+  Or (http)
+  ```bash
+  $ docker-compose -f docker-compose.http.yml up
   ```
 
 ## Test
@@ -31,6 +43,6 @@
   ```
 - Registry Frontend
   ```bash
-  http://localhost:8443    # username: testuser | password: testpassword
+  https://localhost:5001    # username: testuser | password: testpassword
   ```
   ![image](https://user-images.githubusercontent.com/5584709/77814769-cf3ea680-70e6-11ea-85c5-3cda1bd5db59.png)

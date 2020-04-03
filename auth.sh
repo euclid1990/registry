@@ -6,7 +6,7 @@ set -x
 set -eu
 
 user=${1:-testuser}
-password=${1:-testpassword}
+password=${2:-testpassword}
 docker run \
     --entrypoint htpasswd \
     registry:2 -Bbn $user $password > "$(pwd)"/auth/htpasswd
